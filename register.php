@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// Simple Text CAPTCHA generate
+$captcha = rand(10000, 99999);  // 5 digit random number
+$_SESSION['captcha'] = $captcha;
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +17,18 @@
 </head>
 <body>
     <h1>Register</h1>
-    <form id="registerForm">
-        <input type="text" id="name" placeholder="Name" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="number" id="age" placeholder="Age" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button type="submit">Register</button>
-    </form>
+    <form id="registerForm" method="POST" action="verify_register.php">
+    <input type="text" name="name" placeholder="Name" required><br>
+    <input type="email" name="email" placeholder="Email" required><br>
+    <input type="number" name="age" placeholder="Age" required><br>
+    <input type="password" name="password" placeholder="Password" required><br>
+
+    <p>Enter this CAPTCHA: <b><?php echo $captcha; ?></b></p>
+    <input type="text" name="captcha_input" placeholder="Enter Captcha" required><br>
+
+    <button type="submit">Register</button>
+</form>
+
     <p>Already have an account? <a href="login.php">Login here</a></p>
 
     <script src="js/main.js"></script>
